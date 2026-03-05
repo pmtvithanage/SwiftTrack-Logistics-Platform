@@ -1,0 +1,26 @@
+
+> swifttrack-products@2.0.0 start
+> node src/server.js
+
+✅ Products backend running on port 5999
+✅ Products backend connected to MongoDB
+[0mGET /api/products/offers [32m200[0m 56.281 ms - 2512[0m
+[0mGET /api/products/showProducts [32m200[0m 80.093 ms - 3156[0m
+[0mGET /api/products/showProducts [32m200[0m 46.157 ms - 3156[0m
+[0mGET /api/products/offers [32m200[0m 57.046 ms - 2512[0m
+[0mGET /api/products/offers [32m200[0m 41.443 ms - 2512[0m
+[0mGET /api/products/showProducts [32m200[0m 51.786 ms - 3156[0m
+[0mGET /api/products/showProducts [32m200[0m 42.456 ms - 3156[0m
+[0mGET /api/products/offers [32m200[0m 49.947 ms - 2512[0m
+[0mGET /api/products/categories [32m200[0m 425.439 ms - 145[0m
+[0mGET /api/products/categories [32m200[0m 49.591 ms - 145[0m
+[0mGET /api/products/categories [32m200[0m 53.272 ms - 145[0m
+[0mGET /api/products/categories [32m200[0m 48.490 ms - 145[0m
+[0mGET /api/products/offers [32m200[0m 48.691 ms - 2512[0m
+[0mGET /api/products/offers [32m200[0m 47.832 ms - 2512[0m
+[0mGET /api/products/categories [32m200[0m 39.008 ms - 145[0m
+[0mGET /api/products/showProducts [32m200[0m 49.326 ms - 3156[0m
+[0mGET /api/products/offers [32m200[0m 50.599 ms - 2512[0m
+[0mGET /api/products/categories [32m200[0m 46.640 ms - 145[0m
+[0mGET /api/products/offers [32m200[0m 46.282 ms - 2512[0m
+[0mGET /api/products/showProducts [32m200[0m 52.785 ms - 3156[0m

@@ -1,0 +1,12 @@
+Loaded 35 districts
+✅ CMS connected to MongoDB
+✅ SwiftTrack CMS SOAP Server starting on http://127.0.0.1:8000
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.23.10.115:8000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [05/Mar/2026 13:12:41] "GET /getOrders/CUST-5E8A55E8 HTTP/1.1" 200 -
+127.0.0.1 - - [05/Mar/2026 13:12:41] "GET /getOrders/CUST-5E8A55E8 HTTP/1.1" 200 -

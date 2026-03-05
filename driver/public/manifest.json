@@ -1,0 +1,8 @@
+{
+  "short_name": "SwiftTrack Driver",
+  "name": "SwiftTrack Driver Portal",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0d9488",
+  "background_color": "#f8fafc"
+}

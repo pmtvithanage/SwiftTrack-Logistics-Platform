@@ -1,0 +1,38 @@
+
+> swifttrack-esb@1.0.0 start
+> node src/server.js
+
+✅ WebSocket server initialized at /ws
+✅ SwiftTrack ESB running on port 8290
+   Auth  → http://localhost:8290/auth
+   CMS   → http://localhost:8290/cms
+   ROS   → http://localhost:8290/ros
+   WMS   → http://localhost:8290/wms
+✅ ESB connected to MongoDB (SwiftTrack)
+[0mGET /favicon.ico [33m404[0m 3.263 ms - 150[0m
+[0mGET /favicon.ico [33m404[0m 0.568 ms - 150[0m
+[0mGET /api/products/offers [36m304[0m 182.801 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 197.703 ms - -[0m
+[0mGET /favicon.ico [33m404[0m 2.858 ms - 150[0m
+[0mGET /api/products/showProducts? [36m304[0m 52.618 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 64.671 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 46.032 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 56.442 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 45.879 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 54.333 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 536.388 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 55.439 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 60.408 ms - -[0m
+[0mGET /ros/orders [32m200[0m 593.874 ms - 9718[0m
+[0mGET /api/products/categories [36m304[0m 53.017 ms - -[0m
+[0mGET /ros/orders [36m304[0m 106.846 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 617.871 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 147.353 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 53.903 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 51.134 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 46.798 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 56.490 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 60.137 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 49.918 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 50.053 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 57.085 ms - -[0m

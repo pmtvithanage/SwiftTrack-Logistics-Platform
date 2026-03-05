@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package wms;
+
+message WMSMessage {
+    string event = 1;
+
+    oneof message {
+        Order order = 2;
+        StatusUpdate status_update = 3;
+    }
+
+    double timestamp = 4;
+}
+
+message Order {
+    string orderId = 1;
+    string customerId = 2;
+
+    //order items
+    repeated OrderItem item = 3;
+
+    //order total amount 
+    double total_amount = 4;
+
+    //prioiry level
+    string priority = 5;
+}
+
+message OrderItem {
+    string itemId = 1;
+    int32 quantity = 2;
+    double price = 3;
+}
+
+//status update message
+message StatusUpdate {
+    string orderId = 1;
+
+    string status = 2;
+
+    string reference_number = 3;
+}
+
+//Response message
+message WMSResponse {
+    //Status of the operation
+    string status = 1;
+
+    //Response message
+    string message = 2;
+
+    //Order ID
+    string orderId = 3;
+
+    string reference_number = 4;
+
+    double timestamp = 5;
+}
