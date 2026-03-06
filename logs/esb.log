@@ -3,36 +3,46 @@
 > node src/server.js
 
 ✅ WebSocket server initialized at /ws
-✅ SwiftTrack ESB running on port 8290
-   Auth  → http://localhost:8290/auth
-   CMS   → http://localhost:8290/cms
-   ROS   → http://localhost:8290/ros
-   WMS   → http://localhost:8290/wms
-✅ ESB connected to MongoDB (SwiftTrack)
-[0mGET /favicon.ico [33m404[0m 3.263 ms - 150[0m
-[0mGET /favicon.ico [33m404[0m 0.568 ms - 150[0m
-[0mGET /api/products/offers [36m304[0m 182.801 ms - -[0m
-[0mGET /api/products/showProducts? [36m304[0m 197.703 ms - -[0m
-[0mGET /favicon.ico [33m404[0m 2.858 ms - 150[0m
-[0mGET /api/products/showProducts? [36m304[0m 52.618 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 64.671 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 46.032 ms - -[0m
-[0mGET /api/products/showProducts? [36m304[0m 56.442 ms - -[0m
-[0mGET /api/products/showProducts? [36m304[0m 45.879 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 54.333 ms - -[0m
-[0mGET /api/products/categories [36m304[0m 536.388 ms - -[0m
-[0mGET /api/products/categories [36m304[0m 55.439 ms - -[0m
-[0mGET /api/products/categories [36m304[0m 60.408 ms - -[0m
-[0mGET /ros/orders [32m200[0m 593.874 ms - 9718[0m
-[0mGET /api/products/categories [36m304[0m 53.017 ms - -[0m
-[0mGET /ros/orders [36m304[0m 106.846 ms - -[0m
-[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 617.871 ms - -[0m
-[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 147.353 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 53.903 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 51.134 ms - -[0m
-[0mGET /api/products/categories [36m304[0m 46.798 ms - -[0m
-[0mGET /api/products/showProducts? [36m304[0m 56.490 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 60.137 ms - -[0m
-[0mGET /api/products/categories [36m304[0m 49.918 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 50.053 ms - -[0m
-[0mGET /api/products/showProducts? [36m304[0m 57.085 ms - -[0m
+node:events:502
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::8290
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at file:///home/ucsc/Downloads/new/esb/src/server.js:50:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+Emitted 'error' event on WebSocketServer instance at:
+    at Server.emit (node:events:524:28)
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections[0mGET /ros/orders [36m304[0m 1153.401 ms - -[0m
+[0mGET /ros/orders [36m304[0m 161.266 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 603.831 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 608.416 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 90.636 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 96.057 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 1146.140 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 93.200 ms - -[0m
+[0mGET /main.7b4cca710c879508ef0a.hot-update.json [33m404[0m 1.761 ms - 180[0m
+[0mGET /api/products/categories [36m304[0m 80.392 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 85.497 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 95.219 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 72.524 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 76.703 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 77.409 ms - -[0m
+[0mGET /main.de06bdcf79845a749aee.hot-update.json [33m404[0m 0.687 ms - 180[0m
+[0mGET /ros/orders [36m304[0m 176.390 ms - -[0m
+[0mGET /ros/orders [36m304[0m 176.661 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 907.603 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 276.413 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 91.205 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 91.629 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 325.409 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 246.843 ms - -[0m
+[0mGET /ros/orders [36m304[0m 174.066 ms - -[0m
+[0mGET /ros/orders [36m304[0m 163.122 ms - -[0m
+[0mGET /ros/routes/optimize/DRV-87D9A5D2 [36m304[0m 335.519 ms - -[0m
+[0mGET /ros/routes/optimize/DRV-87D9A5D2 [36m304[0m 237.661 ms - -[0m

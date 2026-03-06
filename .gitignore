@@ -1,1 +1,25 @@
 newSwiftSystem.rar
+
+# Node modules
+node_modules/
+*/node_modules/
+**/node_modules/
+
+# Build outputs
+web/build/
+driver/build/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+

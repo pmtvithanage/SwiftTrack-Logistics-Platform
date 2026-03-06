@@ -19,7 +19,7 @@ newSwiftSystem/
 ## Quick Start (Windows)
 
 ```bat
-cd E:\swiftLogistics\newSwiftSystem
+cd E:\SwiftTrack Logistics\newSwiftSystem
 start-all.bat
 ```
 

@@ -1,1 +1,10 @@
-2026-03-05 13:10:17,280 [WMS] INFO ✅ WMS connected to MongoDB
+2026-03-06 05:53:35,599 [WMS] INFO ✅ WMS connected to MongoDB
+Traceback (most recent call last):
+  File "/home/ucsc/Downloads/new/wms/tcp_server.py", line 189, in <module>
+    with ThreadedTCPServer((HOST, PORT), TCPHandler) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
