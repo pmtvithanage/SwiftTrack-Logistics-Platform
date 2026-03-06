@@ -4,29 +4,9 @@
 
 ✅ Products backend running on port 5999
 ✅ Products backend connected to MongoDB
-[0mGET /api/products/showProducts [32m200[0m 152.463 ms - 3156[0m
-[0mGET /api/products/offers [32m200[0m 154.516 ms - 2512[0m
-[0mGET /api/products/showProducts [32m200[0m 90.806 ms - 3156[0m
-[0mGET /api/products/offers [32m200[0m 90.551 ms - 2512[0m
-[0mGET /api/products/categories [32m200[0m 811.791 ms - 145[0m
-[0mGET /api/products/categories [32m200[0m 84.520 ms - 145[0m
-[0mGET /api/products/showProducts [32m200[0m 125.430 ms - 3156[0m
-[0mGET /api/products/categories [32m200[0m 123.734 ms - 145[0m
-[0mGET /api/products/offers [32m200[0m 405.666 ms - 2512[0m
-[0mGET /api/products/categories [32m200[0m 340.110 ms - 145[0m
-[0mGET /api/products/showProducts [32m200[0m 347.212 ms - 3156[0m
-[0mGET /api/products/offers [32m200[0m 148.965 ms - 2512[0m
-[0mGET /api/products/offers [32m200[0m 72.523 ms - 2512[0m
-[0mGET /api/products/offers [32m200[0m 64.321 ms - 2512[0m
-[0mGET /api/products/showProducts [32m200[0m 98.559 ms - 3156[0m
-[0mGET /api/products/categories [32m200[0m 95.646 ms - 145[0m
-[0mGET /api/products/offers [32m200[0m 102.834 ms - 2512[0m
-[0mGET /api/products/showProducts [32m200[0m 90.932 ms - 3156[0m
-[0mGET /api/products/categories [32m200[0m 89.209 ms - 145[0m
-[0mGET /api/products/offers [32m200[0m 87.829 ms - 2512[0m
-[0mGET /api/products/offers [32m200[0m 93.599 ms - 2512[0m
-[0mGET /api/products/categories [32m200[0m 93.960 ms - 145[0m
-[0mGET /api/products/showProducts [32m200[0m 101.170 ms - 3156[0m
-[0mGET /api/products/showProducts [32m200[0m 87.377 ms - 3156[0m
-[0mGET /api/products/categories [32m200[0m 91.276 ms - 145[0m
-[0mGET /api/products/offers [32m200[0m 96.394 ms - 2512[0m
+[0mGET /api/products/showProducts [32m200[0m 76.345 ms - 3156[0m
+[0mGET /api/products/offers [32m200[0m 71.447 ms - 2512[0m
+[0mGET /api/products/offers [32m200[0m 76.805 ms - 2512[0m
+[0mGET /api/products/showProducts [32m200[0m 86.195 ms - 3156[0m
+[0mGET /api/products/categories [32m200[0m 516.640 ms - 145[0m
+[0mGET /api/products/categories [32m200[0m 64.407 ms - 145[0m

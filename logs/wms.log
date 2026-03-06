@@ -1,35 +1,11 @@
-2026-03-06 08:00:22,051 [WMS] INFO ✅ WMS connected to MongoDB
-2026-03-06 08:03:00,127 [WMS] INFO Connection from ('127.0.0.1', 53090)
-2026-03-06 08:03:00,127 [WMS] INFO Received: event=update_status|orderId=ORD-1772763809950-L9KB5UI7Y|status=on-delivery
-2026-03-06 08:03:00,210 [WMS] INFO Order ORD-1772763809950-L9KB5UI7Y status → on-delivery
-2026-03-06 08:03:02,389 [WMS] INFO Connection from ('127.0.0.1', 53092)
-2026-03-06 08:03:02,389 [WMS] INFO Received: event=update_status|orderId=ORD-1772762942480-DYQ48LOMK|status=on-delivery
-2026-03-06 08:03:02,614 [WMS] INFO Order ORD-1772762942480-DYQ48LOMK status → on-delivery
-2026-03-06 08:03:04,748 [WMS] INFO Connection from ('127.0.0.1', 53106)
-2026-03-06 08:03:04,748 [WMS] INFO Received: event=update_status|orderId=ORD-1772763431206-HDI932HD0|status=on-delivery
-2026-03-06 08:03:04,856 [WMS] INFO Order ORD-1772763431206-HDI932HD0 status → on-delivery
-2026-03-06 08:03:11,966 [WMS] INFO Connection from ('127.0.0.1', 59892)
-2026-03-06 08:03:11,966 [WMS] INFO Received: event=update_status|orderId=ORD-1772762089169-AZFIIPBXK|status=on-delivery
-2026-03-06 08:03:12,058 [WMS] INFO Order ORD-1772762089169-AZFIIPBXK status → on-delivery
-2026-03-06 08:03:18,943 [WMS] INFO Connection from ('127.0.0.1', 59908)
-2026-03-06 08:03:18,944 [WMS] INFO Received: event=update_status|orderId=ORD-1772763809950-L9KB5UI7Y|status=delivered
-2026-03-06 08:03:19,101 [WMS] INFO Order ORD-1772763809950-L9KB5UI7Y status → delivered
-2026-03-06 08:03:20,996 [WMS] INFO Connection from ('127.0.0.1', 58992)
-2026-03-06 08:03:20,996 [WMS] INFO Received: event=update_status|orderId=ORD-1772762942480-DYQ48LOMK|status=delivered
-2026-03-06 08:03:21,063 [WMS] INFO Order ORD-1772762942480-DYQ48LOMK status → delivered
-2026-03-06 08:03:23,446 [WMS] INFO Connection from ('127.0.0.1', 59006)
-2026-03-06 08:03:23,447 [WMS] INFO Received: event=update_status|orderId=ORD-1772763431206-HDI932HD0|status=delivered
-2026-03-06 08:03:23,527 [WMS] INFO Order ORD-1772763431206-HDI932HD0 status → delivered
-2026-03-06 08:03:25,630 [WMS] INFO Connection from ('127.0.0.1', 59014)
-2026-03-06 08:03:25,631 [WMS] INFO Received: event=update_status|orderId=ORD-1772762089169-AZFIIPBXK|status=delivered
-2026-03-06 08:03:25,703 [WMS] INFO Order ORD-1772762089169-AZFIIPBXK status → delivered
-2026-03-06 08:04:38,019 [WMS] INFO Connection from ('127.0.0.1', 44128)
-2026-03-06 08:04:38,020 [WMS] INFO Received: event=new_order|orderId=ORD-1772764477431-LIODZ8F1K|customer_id=CUST-5E8A55E8|totalAmount=2847.99|priority=low
-2026-03-06 08:04:38,256 [WMS] INFO Order ORD-1772764477431-LIODZ8F1K saved to MongoDB
-2026-03-06 08:04:38,256 [WMS] INFO Processed order ORD-1772764477431-LIODZ8F1K
-2026-03-06 08:06:16,250 [WMS] INFO Connection from ('127.0.0.1', 35318)
-2026-03-06 08:06:16,250 [WMS] INFO Received: event=update_status|orderId=ORD-1772764477431-LIODZ8F1K|status=on-delivery
-2026-03-06 08:06:17,131 [WMS] INFO Order ORD-1772764477431-LIODZ8F1K status → on-delivery
-2026-03-06 08:06:21,069 [WMS] INFO Connection from ('127.0.0.1', 55438)
-2026-03-06 08:06:21,069 [WMS] INFO Received: event=update_status|orderId=ORD-1772764477431-LIODZ8F1K|status=delivered
-2026-03-06 08:06:21,170 [WMS] INFO Order ORD-1772764477431-LIODZ8F1K status → delivered
+2026-03-06 10:56:48,355 [WMS] INFO ✅ WMS connected to MongoDB
+2026-03-06 10:57:42,705 [WMS] INFO Connection from ('127.0.0.1', 39088)
+2026-03-06 10:57:42,705 [WMS] INFO Received: event=new_order|orderId=ORD-1772774861815-RLP98LVN1|customer_id=CUST-5E8A55E8|totalAmount=2499.99|priority=low
+2026-03-06 10:57:42,799 [WMS] INFO Order ORD-1772774861815-RLP98LVN1 saved to MongoDB
+2026-03-06 10:57:42,799 [WMS] INFO Processed order ORD-1772774861815-RLP98LVN1
+2026-03-06 10:58:14,116 [WMS] INFO Connection from ('127.0.0.1', 49572)
+2026-03-06 10:58:14,116 [WMS] INFO Received: event=update_status|orderId=ORD-1772774861815-RLP98LVN1|status=on-delivery
+2026-03-06 10:58:14,186 [WMS] INFO Order ORD-1772774861815-RLP98LVN1 status → on-delivery
+2026-03-06 10:58:17,262 [WMS] INFO Connection from ('127.0.0.1', 49574)
+2026-03-06 10:58:17,262 [WMS] INFO Received: event=update_status|orderId=ORD-1772774861815-RLP98LVN1|status=delivered
+2026-03-06 10:58:17,340 [WMS] INFO Order ORD-1772774861815-RLP98LVN1 status → delivered

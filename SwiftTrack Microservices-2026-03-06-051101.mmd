@@ -1,0 +1,45 @@
+---
+config:
+  theme: mc
+  layout: dagre
+  flowchart: {}
+---
+flowchart TB
+ subgraph CLIENTS["🖥️ Frontend Clients"]
+        WEB["Customer Web App\nReact TypeScript\nPort 3000"]
+        DRV["Driver Mobile PWA\nReact TypeScript\nPort 3001"]
+  end
+ subgraph GATEWAY["⚡ API Gateway / Middleware"]
+        ESB["ESB\nNode.js Express\nPort 8290\nJWT Authentication\nWebSocket Support"]
+  end
+ subgraph SVCS["🔧 Microservices"]
+        CMS["CMS\nFlask Python\nPort 8000\nSOAP over XML"]
+        PRD["Products Service\nNode.js\nPort 5999\nREST API"]
+        ROS["ROS\nFastAPI Python\nPort 8001\nRoute Optimisation"]
+        WMS["WMS\nPython TCP Server\nPort 9999\nWarehouse Mgmt"]
+  end
+ subgraph DATA["🗄️ Data Layer"]
+        MDB[("MongoDB Atlas\nCloud Database")]
+  end
+ subgraph EXT["🌐 External Services"]
+        GMAP["Google Maps Platform\nMaps JS SDK\nGeocoding API\nPlaces API\nDirections API"]
+  end
+    WEB -- REST / HTTP --> ESB
+    DRV -- REST / HTTP + JWT --> ESB
+    ESB -- SOAP / XML --> CMS
+    ESB -- REST / HTTP --> PRD & ROS
+    ESB -- TCP/IP Proprietary --> WMS
+    CMS -- MongoDB Driver --> MDB
+    PRD -- MongoDB Driver --> MDB
+    ROS -- Motor Async --> MDB
+    ESB -- Notifications + Auth --> MDB
+    WMS -- HTTP Status Update --> CMS
+    ROS -- Geocoding HTTPS --> GMAP
+    WEB -- Maps JS SDK --> GMAP
+    DRV -- Maps JS SDK --> GMAP
+
+    style SVCS fill:#BBDEFB
+    style GATEWAY fill:#E1BEE7
+    style CLIENTS fill:#FFE0B2
+    style DATA fill:#C8E6C9
+    style EXT fill:#FFCDD2
