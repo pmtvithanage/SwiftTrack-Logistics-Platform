@@ -9,3 +9,33 @@
 2026-03-06 10:58:17,262 [WMS] INFO Connection from ('127.0.0.1', 49574)
 2026-03-06 10:58:17,262 [WMS] INFO Received: event=update_status|orderId=ORD-1772774861815-RLP98LVN1|status=delivered
 2026-03-06 10:58:17,340 [WMS] INFO Order ORD-1772774861815-RLP98LVN1 status → delivered
+2026-03-06 11:02:35,027 [WMS] INFO Connection from ('127.0.0.1', 50328)
+2026-03-06 11:02:35,027 [WMS] INFO Received: event=update_status|orderId=ORD-ADDRTEST-1772638367941|status=on-delivery
+2026-03-06 11:02:35,484 [WMS] INFO Order ORD-ADDRTEST-1772638367941 status → on-delivery
+2026-03-06 11:02:38,460 [WMS] INFO Connection from ('127.0.0.1', 50332)
+2026-03-06 11:02:38,461 [WMS] INFO Received: event=update_status|orderId=ORD-1772639470966-ZXYW0COYM|status=on-delivery
+2026-03-06 11:02:38,543 [WMS] INFO Order ORD-1772639470966-ZXYW0COYM status → on-delivery
+2026-03-06 11:02:44,791 [WMS] INFO Connection from ('127.0.0.1', 50290)
+2026-03-06 11:02:44,791 [WMS] INFO Received: event=update_status|orderId=ORD-1772705958407-RFZUG7K0N|status=on-delivery
+2026-03-06 11:02:44,862 [WMS] INFO Order ORD-1772705958407-RFZUG7K0N status → on-delivery
+2026-03-06 11:02:49,649 [WMS] INFO Connection from ('127.0.0.1', 48982)
+2026-03-06 11:02:49,649 [WMS] INFO Received: event=update_status|orderId=ORD-1772640924164-8VFVX81HQ|status=on-delivery
+2026-03-06 11:02:49,734 [WMS] INFO Order ORD-1772640924164-8VFVX81HQ status → on-delivery
+2026-03-06 11:02:52,901 [WMS] INFO Connection from ('127.0.0.1', 48984)
+2026-03-06 11:02:52,901 [WMS] INFO Received: event=update_status|orderId=ORD-1772711254723-OFALUTVG9|status=on-delivery
+2026-03-06 11:02:52,966 [WMS] INFO Order ORD-1772711254723-OFALUTVG9 status → on-delivery
+2026-03-06 11:03:18,749 [WMS] INFO Connection from ('127.0.0.1', 34760)
+2026-03-06 11:03:18,749 [WMS] INFO Received: event=update_status|orderId=ORD-ADDRTEST-1772638367941|status=delivered
+2026-03-06 11:03:18,807 [WMS] INFO Order ORD-ADDRTEST-1772638367941 status → delivered
+2026-03-06 11:03:20,350 [WMS] INFO Connection from ('127.0.0.1', 49918)
+2026-03-06 11:03:20,350 [WMS] INFO Received: event=update_status|orderId=ORD-1772639470966-ZXYW0COYM|status=delivered
+2026-03-06 11:03:20,428 [WMS] INFO Order ORD-1772639470966-ZXYW0COYM status → delivered
+2026-03-06 11:03:21,769 [WMS] INFO Connection from ('127.0.0.1', 49928)
+2026-03-06 11:03:21,769 [WMS] INFO Received: event=update_status|orderId=ORD-1772705958407-RFZUG7K0N|status=delivered
+2026-03-06 11:03:21,842 [WMS] INFO Order ORD-1772705958407-RFZUG7K0N status → delivered
+2026-03-06 11:03:23,148 [WMS] INFO Connection from ('127.0.0.1', 49942)
+2026-03-06 11:03:23,149 [WMS] INFO Received: event=update_status|orderId=ORD-1772711254723-OFALUTVG9|status=delivered
+2026-03-06 11:03:23,210 [WMS] INFO Order ORD-1772711254723-OFALUTVG9 status → delivered
+2026-03-06 11:03:24,641 [WMS] INFO Connection from ('127.0.0.1', 49944)
+2026-03-06 11:03:24,642 [WMS] INFO Received: event=update_status|orderId=ORD-1772640924164-8VFVX81HQ|status=delivered
+2026-03-06 11:03:24,706 [WMS] INFO Order ORD-1772640924164-8VFVX81HQ status → delivered
