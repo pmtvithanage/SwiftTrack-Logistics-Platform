@@ -6,6 +6,14 @@ mkdir -p "$LOG_DIR"
 
 PIDS=()
 
+# --- Kill any previously running services on their ports ---
+echo "Stopping any existing services..."
+for PORT in 3000 3001 5999 8000 8001 8290 9999; do
+    fuser -k "${PORT}/tcp" 2>/dev/null && echo "  Freed port $PORT"
+done
+sleep 1
+echo ""
+
 cleanup() {
     echo ""
     echo "Stopping all services..."

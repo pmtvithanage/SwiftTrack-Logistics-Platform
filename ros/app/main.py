@@ -7,9 +7,12 @@ import os
 import math
 import json
 import re
+import httpx
 from dotenv import load_dotenv
 
 load_dotenv()
+
+GOOGLE_MAPS_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY", "")
 
 # ─── District coordinates loader ─────────────────────────────────────────────
 
@@ -44,6 +47,43 @@ def find_coordinates_by_address(address):
 
 def get_all_districts():
     return list(DISTRICT_DATA.keys()) if DISTRICT_DATA else []
+
+
+async def geocode_with_google(address: str):
+    """Call Google Geocoding API to resolve an address to lat/lng."""
+    if not GOOGLE_MAPS_API_KEY or not address:
+        return None
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            resp = await client.get(
+                "https://maps.googleapis.com/maps/api/geocode/json",
+                params={"address": address, "key": GOOGLE_MAPS_API_KEY},
+            )
+            data = resp.json()
+            if data.get("status") == "OK" and data.get("results"):
+                r = data["results"][0]
+                loc = r["geometry"]["location"]
+                return {
+                    "latitude": loc["lat"],
+                    "longitude": loc["lng"],
+                    "formatted_address": r.get("formatted_address", address),
+                    "source": "google",
+                }
+    except Exception as e:
+        print(f"Google Geocoding error: {e}")
+    return None
+
+
+async def resolve_coordinates(address: str):
+    """Resolve address to coordinates: Google Geocoding first, district lookup fallback."""
+    result = await geocode_with_google(address)
+    if result:
+        return result
+    detected = find_coordinates_by_address(address)
+    if detected:
+        detected["source"] = "district_lookup"
+        return detected
+    return None
 
 
 # ─── Pydantic Models ──────────────────────────────────────────────────────────
@@ -110,7 +150,8 @@ db = client["ROS"]
 drivers_collection = db.drivers
 orders_collection = db.orders
 
-WMS_LOCATION = {"address": "123 Warehouse Street, Colombo 07", "latitude": 6.9271, "longitude": 79.8612}
+WMS_LOCATION = {"address": "Union Place, Colombo, Sri Lanka", "latitude": 6.9189, "longitude": 79.8562}
+DRIVER_DEFAULT_START = {"address": "College House, 94 Cumaratunga Munidasawa Mw, Colombo 00700, Sri Lanka", "latitude": 6.9020, "longitude": 79.8607}
 
 
 # ─── Route optimization utilities ────────────────────────────────────────────
@@ -206,15 +247,19 @@ async def driver_signup(request: DriverSignupRequest):
     location_info = None
 
     if lat is None or lng is None:
-        detected = find_coordinates_by_address(request.address)
+        detected = await resolve_coordinates(request.address)
         if detected:
             lat = detected["latitude"]
             lng = detected["longitude"]
-            location_info = {"district": detected["district"], "auto_detected": True}
+            location_info = {
+                "formatted_address": detected.get("formatted_address", detected.get("district", "")),
+                "source": detected.get("source", "unknown"),
+                "auto_detected": True,
+            }
         else:
-            lat = WMS_LOCATION["latitude"]
-            lng = WMS_LOCATION["longitude"]
-            location_info = {"district": "Colombo (default)", "auto_detected": False}
+            lat = DRIVER_DEFAULT_START["latitude"]
+            lng = DRIVER_DEFAULT_START["longitude"]
+            location_info = {"address": DRIVER_DEFAULT_START["address"], "auto_detected": False}
 
     doc = {
         "user_id": request.user_id,
@@ -266,11 +311,11 @@ async def create_order(request: CreateOrderRequest):
     lng = request.delivery_address.longitude
     district = None
     if (lat is None or lng is None) and request.delivery_address.address:
-        detected = find_coordinates_by_address(request.delivery_address.address)
+        detected = await resolve_coordinates(request.delivery_address.address)
         if detected:
             lat = detected["latitude"]
             lng = detected["longitude"]
-            district = detected["district"]
+            district = detected.get("formatted_address", detected.get("district"))
     # Final fallback to warehouse location
     if lat is None or lng is None:
         lat = WMS_LOCATION["latitude"]
@@ -297,8 +342,8 @@ async def create_order(request: CreateOrderRequest):
     result = await orders_collection.insert_one(doc)
     new = await orders_collection.find_one({"_id": result.inserted_id})
     new["_id"] = str(new["_id"])
-    new["created_at"] = new["created_at"].isoformat()
-    new["updated_at"] = new["updated_at"].isoformat()
+    new["created_at"] = new["created_at"].isoformat() + 'Z'
+    new["updated_at"] = new["updated_at"].isoformat() + 'Z'
     return {"message": "Order created", "order": new}
 
 
@@ -308,9 +353,9 @@ async def list_orders():
     for o in orders:
         o["_id"] = str(o["_id"])
         if isinstance(o.get("created_at"), datetime):
-            o["created_at"] = o["created_at"].isoformat()
+            o["created_at"] = o["created_at"].isoformat() + 'Z'
         if isinstance(o.get("updated_at"), datetime):
-            o["updated_at"] = o["updated_at"].isoformat()
+            o["updated_at"] = o["updated_at"].isoformat() + 'Z'
     return {"orders": orders, "count": len(orders)}
 
 
@@ -321,7 +366,7 @@ async def get_order(order_id: str):
         raise HTTPException(status_code=404, detail="Order not found")
     order["_id"] = str(order["_id"])
     if isinstance(order.get("created_at"), datetime):
-        order["created_at"] = order["created_at"].isoformat()
+        order["created_at"] = order["created_at"].isoformat() + 'Z'
     return {"order": order}
 
 
@@ -441,10 +486,11 @@ async def optimize_route_endpoint(driver_id: str = Path(...)):
         seq = i + 1
 
         if node == 'driver':
+            start_addr = driver["current_location"].get("address") or DRIVER_DEFAULT_START["address"]
             route_points.append({
                 "sequence": seq,
                 "location": f"Start – {driver['name']}",
-                "address": driver["current_location"]["address"],
+                "address": start_addr,
                 "type": "start",
                 "coordinates": {"latitude": coords[0], "longitude": coords[1]},
             })

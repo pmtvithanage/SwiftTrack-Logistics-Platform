@@ -17,20 +17,21 @@ interface Order {
   district?: string;
   priority?: string;
   total_price?: number;
+  totalAmount?: number;
   customer_id?: string;
+  customer_name?: string;
+  customer_phone?: string;
   items?: Array<{ name: string; quantity: number; price: number }>;
   created_at?: string;
 }
 
-const STATUS_FLOW = ['ready-to-deliver', 'accepted', 'on-delivery', 'delivered'];
-
-const STATUS_CONFIG: Record<string, { label: string; bg: string; text: string }> = {
-  'ready-to-deliver': { label: 'Ready to Deliver', bg: '#f3e8ff', text: '#6b21a8' },
-  accepted:           { label: 'Accepted',         bg: '#ccfbf1', text: '#115e59' },
-  'on-delivery':      { label: 'On Delivery',      bg: '#ffedd5', text: '#9a3412' },
-  delivered:          { label: 'Delivered',         bg: '#dcfce7', text: '#166534' },
-  cancelled:          { label: 'Cancelled',         bg: '#fee2e2', text: '#991b1b' },
-};
+const STATUS_SECTIONS: Array<{ key: string; label: string; color: string; bg: string; icon: string }> = [
+  { key: 'ready-to-deliver', label: 'Ready to Deliver', color: '#6b21a8', bg: '#f3e8ff', icon: 'inventory_2' },
+  { key: 'accepted',         label: 'Accepted',         color: '#115e59', bg: '#ccfbf1', icon: 'check_circle' },
+  { key: 'on-delivery',      label: 'On Delivery',      color: '#9a3412', bg: '#ffedd5', icon: 'local_shipping' },
+  { key: 'delivered',        label: 'Delivered',         color: '#166534', bg: '#dcfce7', icon: 'done_all' },
+  { key: 'cancelled',        label: 'Cancelled',         color: '#991b1b', bg: '#fee2e2', icon: 'cancel' },
+];
 
 const PRIORITY_COLORS: Record<string, { bg: string; text: string }> = {
   high:   { bg: '#fee2e2', text: '#dc2626' },
@@ -44,6 +45,7 @@ export default function Orders() {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [openSection, setOpenSection] = useState<string | null>('ready-to-deliver');
   const [msg, setMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null);
 
   const fetchOrders = useCallback(async () => {
@@ -51,7 +53,7 @@ export default function Orders() {
       const res = await fetch(ENDPOINTS.orders, { headers: { Authorization: `Bearer ${token}` } });
       const data = await res.json();
       const arr: Order[] = Array.isArray(data) ? data : data.orders || [];
-      setOrders(arr.sort((a, b) => STATUS_FLOW.indexOf(a.status) - STATUS_FLOW.indexOf(b.status)));
+      setOrders(arr.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime()));
     } catch { /* ignore */ } finally { setLoading(false); }
   }, [token]);
 
@@ -62,15 +64,12 @@ export default function Orders() {
     setMsg(null);
     try {
       let endpoint = '';
-      const body: Record<string, string> = { order_id: order.order_id, driver_id: user?.driver_id || '' };
-
-      if (action === 'accept')      endpoint = ENDPOINTS.acceptOrder;
+      if (action === 'accept')           endpoint = ENDPOINTS.acceptOrder;
       else if (action === 'on_delivery') endpoint = ENDPOINTS.onDelivery;
-      else if (action === 'deliver') endpoint = ENDPOINTS.deliver;
-
+      else if (action === 'deliver')     endpoint = ENDPOINTS.deliver;
       const res = await fetch(endpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ order_id: order.order_id, driver_id: user?.driver_id || '' }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.detail || data.error || data.message || `HTTP ${res.status}`);
@@ -80,6 +79,9 @@ export default function Orders() {
       setMsg({ type: 'err', text: err.message });
     } finally { setUpdating(null); }
   };
+
+  const toggleSection = (key: string) =>
+    setOpenSection(prev => (prev === key ? null : key));
 
   return (
     <div>
@@ -95,7 +97,11 @@ export default function Orders() {
             border: `1px solid ${msg.type === 'ok' ? '#bbf7d0' : '#fecaca'}`,
             color: msg.type === 'ok' ? '#166534' : '#dc2626',
             borderRadius: 12, padding: '10px 14px', fontSize: 13, marginBottom: 12,
-          }}>{msg.text}</div>
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          }}>
+            <span>{msg.text}</span>
+            <span onClick={() => setMsg(null)} style={{ cursor: 'pointer', fontSize: 16, marginLeft: 8 }}>✕</span>
+          </div>
         )}
 
         {loading ? (
@@ -106,76 +112,125 @@ export default function Orders() {
             <div style={{ fontSize: 16, fontWeight: 700, color: '#475569' }}>No orders assigned</div>
           </div>
         ) : (
-          orders.map(order => {
-            const sc = STATUS_CONFIG[order.status] ?? { label: order.status, bg: '#f1f5f9', text: '#64748b' };
-            const pc = order.priority ? PRIORITY_COLORS[order.priority] : null;
-            const isExpanded = expandedId === order.order_id;
+          STATUS_SECTIONS.map(section => {
+            const sectionOrders = orders.filter(o => o.status === section.key);
+            if (sectionOrders.length === 0) return null;
+            const isCollapsed = openSection !== section.key;
 
             return (
-              <div key={order.order_id} style={{
-                background: '#fff', borderRadius: 18, marginBottom: 10,
-                border: '1px solid #f1f5f9', overflow: 'hidden',
-              }}>
-                {/* Header row */}
-                <div onClick={() => setExpandedId(isExpanded ? null : order.order_id)}
+              <div key={section.key} style={{ marginBottom: 16 }}>
+                {/* Section header */}
+                <div
+                  onClick={() => toggleSection(section.key)}
                   style={{
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-                    padding: 16, cursor: 'pointer',
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    background: section.bg, borderRadius: isCollapsed ? 14 : '14px 14px 0 0',
+                    padding: '11px 14px', cursor: 'pointer',
+                    border: `1px solid ${section.color}22`,
                   }}
                 >
-                  <div style={{ flex: 1, marginRight: 8 }}>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Order #{order.order_id?.slice(-8)}</div>
-                    <div style={{ fontSize: 12, color: '#64748b', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {getAddressStr(order.delivery_address) || order.district || '—'}
-                    </div>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span className="material-icons-round" style={{ fontSize: 18, color: section.color }}>{section.icon}</span>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: section.color }}>{section.label}</span>
                     <span style={{
-                      display: 'inline-block', background: sc.bg, color: sc.text,
-                      fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 20,
-                    }}>{sc.label}</span>
-                    {pc && (
-                      <span style={{
-                        display: 'block', background: pc.bg, color: pc.text,
-                        fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 20, marginTop: 4,
-                        textTransform: 'capitalize',
-                      }}>{order.priority}!</span>
-                    )}
+                      background: section.color, color: '#fff',
+                      fontSize: 11, fontWeight: 700, borderRadius: 20,
+                      padding: '1px 8px', minWidth: 22, textAlign: 'center',
+                    }}>{sectionOrders.length}</span>
                   </div>
+                  <span className="material-icons-round" style={{ fontSize: 20, color: section.color, transition: 'transform 0.2s', transform: isCollapsed ? 'rotate(0deg)' : 'rotate(180deg)' }}>
+                    expand_more
+                  </span>
                 </div>
 
-                {/* Expanded detail */}
-                {isExpanded && (
-                  <div style={{ padding: '0 16px 16px', borderTop: '1px solid #f8fafc' }}>
-                    {order.customer_id && <InfoRow label="Customer ID" value={order.customer_id} />}
-                    {order.district && <InfoRow label="District" value={order.district} />}
-                    {order.total_price != null && <InfoRow label="Total" value={`Rs. ${Number(order.total_price).toFixed(2)}`} />}
+                {/* Section orders */}
+                {!isCollapsed && (
+                  <div style={{
+                    border: `1px solid ${section.color}22`, borderTop: 'none',
+                    borderRadius: '0 0 14px 14px', overflow: 'hidden',
+                    background: '#fafafa',
+                  }}>
+                    {sectionOrders.map((order, idx) => {
+                      const pc = order.priority ? PRIORITY_COLORS[order.priority] : null;
+                      const isExpanded = expandedId === order.order_id;
+                      const amount = order.totalAmount ?? order.total_price;
+                      const isLast = idx === sectionOrders.length - 1;
 
-                    {order.items && order.items.length > 0 && (
-                      <div style={{ marginTop: 8 }}>
-                        <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 4 }}>Items</div>
-                        {order.items.map((item, i) => (
-                          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b', marginBottom: 2 }}>
-                            <span>{item.name} ×{item.quantity}</span>
-                            <span>Rs. {(item.price * item.quantity).toFixed(2)}</span>
+                      return (
+                        <div key={order.order_id} style={{
+                          background: '#fff',
+                          borderBottom: isLast ? 'none' : '1px solid #f1f5f9',
+                        }}>
+                          {/* Order header row */}
+                          <div
+                            onClick={() => setExpandedId(isExpanded ? null : order.order_id)}
+                            style={{
+                              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                              padding: '12px 14px', cursor: 'pointer',
+                            }}
+                          >
+                            <div style={{ flex: 1, minWidth: 0, marginRight: 8 }}>
+                              <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+                                #{order.order_id?.slice(-8)}
+                                {pc && (
+                                  <span style={{
+                                    marginLeft: 6, background: pc.bg, color: pc.text,
+                                    fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 20, textTransform: 'capitalize',
+                                  }}>{order.priority}</span>
+                                )}
+                              </div>
+                              <div style={{ fontSize: 11, color: '#64748b', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {getAddressStr(order.delivery_address) || order.district || '—'}
+                              </div>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+                              {amount != null && amount > 0 && (
+                                <span style={{ fontSize: 11, color: '#0d9488', fontWeight: 700 }}>LKR {Number(amount).toLocaleString()}</span>
+                              )}
+                              <span className="material-icons-round" style={{ fontSize: 18, color: '#94a3b8', transition: 'transform 0.2s', transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                expand_more
+                              </span>
+                            </div>
                           </div>
-                        ))}
-                      </div>
-                    )}
 
-                    {/* Action buttons */}
-                    {order.status === 'ready-to-deliver' && (
-                      <ActionBtn label="Accept Order" color="#7c3aed" loading={updating === order.order_id}
-                        onClick={() => handleAction(order, 'accept')} />
-                    )}
-                    {order.status === 'accepted' && (
-                      <ActionBtn label="Start Delivery" color="#ea580c" loading={updating === order.order_id}
-                        onClick={() => handleAction(order, 'on_delivery')} />
-                    )}
-                    {order.status === 'on-delivery' && (
-                      <ActionBtn label="Mark Delivered" color="#16a34a" loading={updating === order.order_id}
-                        onClick={() => handleAction(order, 'deliver')} />
-                    )}
+                          {/* Expanded detail */}
+                          {isExpanded && (
+                            <div style={{ padding: '0 14px 14px', borderTop: '1px solid #f8fafc' }}>
+                              {order.customer_name && <InfoRow label="Customer" value={order.customer_name} />}
+                              {order.customer_phone && <InfoRow label="Phone" value={order.customer_phone} />}
+                              {order.customer_id && <InfoRow label="Customer ID" value={order.customer_id} />}
+                              {order.district && <InfoRow label="District" value={order.district} />}
+                              {amount != null && <InfoRow label="Total" value={`LKR ${Number(amount).toLocaleString()}`} />}
+
+                              {order.items && order.items.length > 0 && (
+                                <div style={{ marginTop: 8 }}>
+                                  <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 4 }}>Items</div>
+                                  {order.items.map((item, i) => (
+                                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b', marginBottom: 2 }}>
+                                      <span>{item.name} ×{item.quantity}</span>
+                                      <span>Rs. {(item.price * item.quantity).toFixed(2)}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                              {order.status === 'ready-to-deliver' && (
+                                <ActionBtn label="Accept Order" color="#7c3aed" loading={updating === order.order_id}
+                                  onClick={() => handleAction(order, 'accept')} />
+                              )}
+                              {order.status === 'accepted' && (
+                                <ActionBtn label="🚚 Start Delivery" color="#ea580c" loading={updating === order.order_id}
+                                  onClick={() => handleAction(order, 'on_delivery')} />
+                              )}
+                              {order.status === 'on-delivery' && (
+                                <ActionBtn label="✅ Mark Delivered" color="#16a34a" loading={updating === order.order_id}
+                                  onClick={() => handleAction(order, 'deliver')} />
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -189,8 +244,8 @@ export default function Orders() {
 
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ display: 'flex', marginBottom: 6 }}>
-      <span style={{ fontSize: 12, color: '#94a3b8', width: 90 }}>{label}</span>
+    <div style={{ display: 'flex', marginBottom: 6, marginTop: 6 }}>
+      <span style={{ fontSize: 12, color: '#94a3b8', width: 96, flexShrink: 0 }}>{label}</span>
       <span style={{ fontSize: 12, color: '#475569', fontWeight: 500 }}>{value}</span>
     </div>
   );

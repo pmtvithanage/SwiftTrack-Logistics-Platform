@@ -30,6 +30,15 @@ const callCMS = async (path, soapBody) => {
   return { status: response.status, text };
 };
 
+// Helper: escape special XML characters in user-supplied values
+const escXml = (v) =>
+  String(v ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+
 // Helper: parse simple XML value
 const extractXmlValue = (xml, tag) => {
   const regex = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`, "i");
@@ -56,26 +65,26 @@ router.post("/orders", authenticate, requireRole("customer"), async (req, res) =
     const addrLat    = typeof delivery_address === "object" ? (delivery_address?.latitude  ?? null) : null;
     const addrLng    = typeof delivery_address === "object" ? (delivery_address?.longitude ?? null) : null;
 
-    // Build items XML
+    // Build items XML (escape all user-supplied values)
     const itemsXml = items
       .map(
         (item) =>
           `<item>
-            <product_id>${item.product_id || ""}</product_id>
-            <name>${item.name}</name>
-            <quantity>${item.quantity}</quantity>
-            <price>${item.price}</price>
-            <image>${item.image || ""}</image>
+            <product_id>${escXml(item.product_id)}</product_id>
+            <name>${escXml(item.name)}</name>
+            <quantity>${escXml(item.quantity)}</quantity>
+            <price>${escXml(item.price)}</price>
+            <image>${escXml(item.image)}</image>
           </item>`
       )
       .join("");
 
     const soapBody = `<create_order>
-      <orderID>${order_id}</orderID>
-      <customer_id>${customer_id}</customer_id>
-      <totalAmount>${totalAmount}</totalAmount>
-      <priority>${priority}</priority>
-      <delivery_address>${addrStr}</delivery_address>
+      <orderID>${escXml(order_id)}</orderID>
+      <customer_id>${escXml(customer_id)}</customer_id>
+      <totalAmount>${escXml(totalAmount)}</totalAmount>
+      <priority>${escXml(priority)}</priority>
+      <delivery_address>${escXml(addrStr)}</delivery_address>
       <items>${itemsXml}</items>
     </create_order>`;
 

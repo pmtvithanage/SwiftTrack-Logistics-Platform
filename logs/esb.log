@@ -3,46 +3,101 @@
 > node src/server.js
 
 ✅ WebSocket server initialized at /ws
-node:events:502
-      throw er; // Unhandled 'error' event
-      ^
-
-Error: listen EADDRINUSE: address already in use :::8290
-    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
-    at listenInCluster (node:net:1965:12)
-    at Server.listen (node:net:2067:7)
-    at file:///home/ucsc/Downloads/new/esb/src/server.js:50:8
-    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
-    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
-    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
-Emitted 'error' event on WebSocketServer instance at:
-    at Server.emit (node:events:524:28)
-    at emitErrorNT (node:net:1944:8)
-    at process.processTicksAndRejections[0mGET /ros/orders [36m304[0m 1153.401 ms - -[0m
-[0mGET /ros/orders [36m304[0m 161.266 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 603.831 ms - -[0m
-[0mGET /api/products/showProducts? [36m304[0m 608.416 ms - -[0m
-[0mGET /api/products/showProducts? [36m304[0m 90.636 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 96.057 ms - -[0m
-[0mGET /api/products/categories [36m304[0m 1146.140 ms - -[0m
-[0mGET /api/products/categories [36m304[0m 93.200 ms - -[0m
-[0mGET /main.7b4cca710c879508ef0a.hot-update.json [33m404[0m 1.761 ms - 180[0m
-[0mGET /api/products/categories [36m304[0m 80.392 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 85.497 ms - -[0m
-[0mGET /api/products/showProducts? [36m304[0m 95.219 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 72.524 ms - -[0m
-[0mGET /api/products/categories [36m304[0m 76.703 ms - -[0m
-[0mGET /api/products/showProducts? [36m304[0m 77.409 ms - -[0m
-[0mGET /main.de06bdcf79845a749aee.hot-update.json [33m404[0m 0.687 ms - 180[0m
-[0mGET /ros/orders [36m304[0m 176.390 ms - -[0m
-[0mGET /ros/orders [36m304[0m 176.661 ms - -[0m
-[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 907.603 ms - -[0m
-[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 276.413 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 91.205 ms - -[0m
-[0mGET /api/products/offers [36m304[0m 91.629 ms - -[0m
-[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 325.409 ms - -[0m
-[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 246.843 ms - -[0m
-[0mGET /ros/orders [36m304[0m 174.066 ms - -[0m
-[0mGET /ros/orders [36m304[0m 163.122 ms - -[0m
-[0mGET /ros/routes/optimize/DRV-87D9A5D2 [36m304[0m 335.519 ms - -[0m
-[0mGET /ros/routes/optimize/DRV-87D9A5D2 [36m304[0m 237.661 ms - -[0m
+✅ SwiftTrack ESB running on port 8290
+   Auth  → http://localhost:8290/auth
+   CMS   → http://localhost:8290/cms
+   ROS   → http://localhost:8290/ros
+   WMS   → http://localhost:8290/wms
+✅ ESB connected to MongoDB (SwiftTrack)
+[0mGET /ros/orders [32m200[0m 1764.767 ms - 19245[0m
+[0mGET /ros/orders [36m304[0m 189.370 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 168.087 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 173.953 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 95.326 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 94.269 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 833.731 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 89.397 ms - -[0m
+[0mGET /main.267a12ea7b06e8a31232.hot-update.json [33m404[0m 1.810 ms - 180[0m
+[0mGET /ros/orders [36m304[0m 277.365 ms - -[0m
+[0mGET /ros/orders [36m304[0m 204.424 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 133.451 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 133.179 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 413.331 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 345.251 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 352.810 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 153.340 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [32m200[0m 1304.965 ms - 12339[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 270.405 ms - -[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [36m304[0m 243.911 ms - -[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [36m304[0m 262.175 ms - -[0m
+[0mGET /ros/orders [36m304[0m 246.397 ms - -[0m
+[0mGET /ros/orders [36m304[0m 186.210 ms - -[0m
+[0mPOST /ros/orders/accept [32m200[0m 632.103 ms - 79[0m
+[0mGET /ros/orders [32m200[0m 238.998 ms - 19247[0m
+[0mPOST /ros/orders/accept [32m200[0m 815.479 ms - 79[0m
+[0mGET /ros/orders [32m200[0m 462.213 ms - 19249[0m
+[0mPOST /ros/orders/accept [32m200[0m 762.970 ms - 79[0m
+[0mGET /ros/orders [32m200[0m 1121.928 ms - 19251[0m
+[0mPOST /ros/orders/accept [32m200[0m 859.370 ms - 79[0m
+[0mGET /ros/orders [32m200[0m 247.760 ms - 19253[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 276.839 ms - 2633[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [36m304[0m 262.331 ms - -[0m
+[0mPOST /ros/orders/on-delivery [32m200[0m 536.169 ms - 69[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 264.678 ms - 2606[0m
+[0mPOST /ros/orders/on-delivery [32m200[0m 714.389 ms - 69[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 379.376 ms - 2579[0m
+[0mPOST /ros/orders/on-delivery [32m200[0m 671.600 ms - 69[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 361.774 ms - 2552[0m
+[0mPOST /ros/orders/on-delivery [32m200[0m 457.440 ms - 69[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 194.513 ms - 2322[0m
+[0mPOST /ros/orders/deliver [32m200[0m 647.662 ms - 70[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 192.430 ms - 1900[0m
+[0mPOST /ros/orders/deliver [32m200[0m 508.554 ms - 70[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 183.426 ms - 1477[0m
+[0mPOST /ros/orders/deliver [32m200[0m 524.695 ms - 70[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 183.507 ms - 1058[0m
+[0mPOST /ros/orders/deliver [32m200[0m 516.958 ms - 70[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 227.119 ms - 119[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [32m200[0m 210.557 ms - 12335[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 255.562 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 77.439 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 68.541 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 220.136 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 208.654 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 103.921 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 104.696 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 111.445 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 94.213 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 93.325 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 90.890 ms - -[0m
+[0mGET /ros/orders [32m200[0m 237.010 ms - 19609[0m
+[0mGET /ros/orders [36m304[0m 170.314 ms - -[0m
+[0mGET /ros/orders [36m304[0m 219.823 ms - -[0m
+[0mGET /ros/orders [36m304[0m 154.309 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 228.094 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 233.841 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 99.349 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 100.313 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 106.840 ms - -[0m
+[0mGET /api/products/showProducts? [36m304[0m 92.488 ms - -[0m
+[0mGET /api/products/categories [36m304[0m 95.507 ms - -[0m
+[0mGET /api/products/offers [36m304[0m 99.751 ms - -[0m
+[0mPOST /cms/orders [32m201[0m 1654.346 ms - 81[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [32m200[0m 357.557 ms - 13117[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 385.934 ms - -[0m
+[0mGET /ros/orders [32m200[0m 263.706 ms - 20067[0m
+[0mGET /ros/orders [36m304[0m 200.714 ms - -[0m
+[0mGET /ros/orders [36m304[0m 263.973 ms - -[0m
+[0mGET /ros/orders [36m304[0m 501.709 ms - -[0m
+[0mPOST /ros/orders/accept [32m200[0m 684.421 ms - 79[0m
+[0mGET /ros/orders [32m200[0m 380.386 ms - 20069[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 288.264 ms - 1304[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [36m304[0m 273.744 ms - -[0m
+[0mPOST /ros/orders/on-delivery [32m200[0m 9468.812 ms - 69[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 378.765 ms - 1072[0m
+[0mPOST /ros/orders/deliver [32m200[0m 2240.929 ms - 70[0m
+[0mGET /ros/routes/optimize/DRV-E4926F0E [32m200[0m 1954.275 ms - 119[0m
+[0mGET /ros/orders [32m200[0m 270.182 ms - 20158[0m
+[0mGET /ros/orders [36m304[0m 209.713 ms - -[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [32m200[0m 2106.520 ms - 13116[0m
+[0mGET /cms/orders/CUST-5E8A55E8 [36m304[0m 904.182 ms - -[0m

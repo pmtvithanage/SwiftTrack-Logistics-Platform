@@ -205,7 +205,7 @@ def order_service():
                             elif tag == 'quantity': qty = int(child.text or 1)
                             elif tag == 'price': price = float(child.text or 0)
                             elif tag == 'image': img = child.text or ""
-                        if pid and iname:
+                        if iname:
                             items.append({"product_id": pid, "name": iname, "quantity": qty, "price": price, "image": img})
 
                 doc = {
@@ -277,10 +277,10 @@ def _build_orders_xml(orders):
             </item>"""
         created = o.get('created_at', '')
         if isinstance(created, datetime):
-            created = created.isoformat()
+            created = created.isoformat() + 'Z'
         updated = o.get('updated_at', '')
         if isinstance(updated, datetime):
-            updated = updated.isoformat()
+            updated = updated.isoformat() + 'Z'
         xml += f"""<order>
           <_id>{str(o.get('_id',''))}</_id>
           <orderID>{o.get('orderID','')}</orderID>

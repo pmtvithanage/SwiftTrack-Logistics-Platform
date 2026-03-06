@@ -2,27 +2,31 @@
 > swifttrack-products@2.0.0 start
 > node src/server.js
 
-node:events:502
-      throw er; // Unhandled 'error' event
-      ^
-
-Error: listen EADDRINUSE: address already in use :::5999
-    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
-    at listenInCluster (node:net:1965:12)
-    at Server.listen (node:net:2067:7)
-    at Function.listen (/home/ucsc/Downloads/new/products/node_modules/express/lib/application.js:635:24)
-    at file:///home/ucsc/Downloads/new/products/src/server.js:23:5
-    at ModuleJob.run (node:internal/mod[0mGET /api/products/offers [32m200[0m 596.212 ms - 2512[0m
-[0mGET /api/products/showProducts [32m200[0m 601.663 ms - 3156[0m
-[0mGET /api/products/showProducts [32m200[0m 86.626 ms - 3156[0m
-[0mGET /api/products/offers [32m200[0m 92.297 ms - 2512[0m
-[0mGET /api/products/categories [32m200[0m 1138.800 ms - 145[0m
-[0mGET /api/products/categories [32m200[0m 89.686 ms - 145[0m
-[0mGET /api/products/categories [32m200[0m 76.220 ms - 145[0m
-[0mGET /api/products/offers [32m200[0m 81.788 ms - 2512[0m
-[0mGET /api/products/showProducts [32m200[0m 89.951 ms - 3156[0m
-[0mGET /api/products/offers [32m200[0m 68.306 ms - 2512[0m
-[0mGET /api/products/categories [32m200[0m 72.831 ms - 145[0m
-[0mGET /api/products/showProducts [32m200[0m 74.699 ms - 3156[0m
-[0mGET /api/products/offers [32m200[0m 87.402 ms - 2512[0m
-[0mGET /api/products/offers [32m200[0m 88.072 ms - 2512[0m
+✅ Products backend running on port 5999
+✅ Products backend connected to MongoDB
+[0mGET /api/products/showProducts [32m200[0m 152.463 ms - 3156[0m
+[0mGET /api/products/offers [32m200[0m 154.516 ms - 2512[0m
+[0mGET /api/products/showProducts [32m200[0m 90.806 ms - 3156[0m
+[0mGET /api/products/offers [32m200[0m 90.551 ms - 2512[0m
+[0mGET /api/products/categories [32m200[0m 811.791 ms - 145[0m
+[0mGET /api/products/categories [32m200[0m 84.520 ms - 145[0m
+[0mGET /api/products/showProducts [32m200[0m 125.430 ms - 3156[0m
+[0mGET /api/products/categories [32m200[0m 123.734 ms - 145[0m
+[0mGET /api/products/offers [32m200[0m 405.666 ms - 2512[0m
+[0mGET /api/products/categories [32m200[0m 340.110 ms - 145[0m
+[0mGET /api/products/showProducts [32m200[0m 347.212 ms - 3156[0m
+[0mGET /api/products/offers [32m200[0m 148.965 ms - 2512[0m
+[0mGET /api/products/offers [32m200[0m 72.523 ms - 2512[0m
+[0mGET /api/products/offers [32m200[0m 64.321 ms - 2512[0m
+[0mGET /api/products/showProducts [32m200[0m 98.559 ms - 3156[0m
+[0mGET /api/products/categories [32m200[0m 95.646 ms - 145[0m
+[0mGET /api/products/offers [32m200[0m 102.834 ms - 2512[0m
+[0mGET /api/products/showProducts [32m200[0m 90.932 ms - 3156[0m
+[0mGET /api/products/categories [32m200[0m 89.209 ms - 145[0m
+[0mGET /api/products/offers [32m200[0m 87.829 ms - 2512[0m
+[0mGET /api/products/offers [32m200[0m 93.599 ms - 2512[0m
+[0mGET /api/products/categories [32m200[0m 93.960 ms - 145[0m
+[0mGET /api/products/showProducts [32m200[0m 101.170 ms - 3156[0m
+[0mGET /api/products/showProducts [32m200[0m 87.377 ms - 3156[0m
+[0mGET /api/products/categories [32m200[0m 91.276 ms - 145[0m
+[0mGET /api/products/offers [32m200[0m 96.394 ms - 2512[0m

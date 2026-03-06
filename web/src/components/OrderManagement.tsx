@@ -1,13 +1,23 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../App';
 
+type DeliveryAddress = string | { address: string; latitude?: number; longitude?: number };
+
+function getAddressStr(addr?: DeliveryAddress): string {
+  if (!addr) return '';
+  if (typeof addr === 'object') return addr.address || '';
+  return addr;
+}
+
 interface Order {
   order_id: string;
   customer_id: string;
-  items?: Array<{ name: string; quantity: number; price: number }>;
+  items?: Array<{ name: string; quantity: number; price: number; product_id?: string; image?: string }>;
   total_price?: number;
-  delivery_address?: string;
+  totalAmount?: number;
+  delivery_address?: DeliveryAddress;
   status: string;
+  priority?: string;
   created_at?: string;
   updated_at?: string;
   driver_id?: string;
@@ -196,41 +206,94 @@ export default function OrderManagement() {
                 <OrderTimeline status={order.status} />
 
                 {/* Expanded details */}
-                {isExpanded && (
-                  <div className="mt-4 pt-4 border-t border-slate-100 space-y-4">
-                    {order.delivery_address && (
-                      <div className="flex gap-3 text-sm">
-                        <span className="text-slate-400 w-28 flex-shrink-0">Delivery to</span>
-                        <span className="text-slate-700">{order.delivery_address}</span>
+                {isExpanded && (() => {
+                  const addrStr = getAddressStr(order.delivery_address);
+                  const total = order.totalAmount ?? order.total_price;
+                  const subtotal = order.items?.reduce((s, i) => s + i.price * i.quantity, 0) ?? total ?? 0;
+                  return (
+                    <div className="mt-4 pt-4 border-t border-slate-100 space-y-4">
+
+                      {/* Delivery info */}
+                      <div className="bg-slate-50 rounded-xl p-4 space-y-2">
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Delivery Info</p>
+                        {addrStr && (
+                          <div className="flex gap-3 text-sm">
+                            <span className="material-icons-round text-slate-400 flex-shrink-0" style={{ fontSize: 16, marginTop: 1 }}>location_on</span>
+                            <span className="text-slate-700">{addrStr}</span>
+                          </div>
+                        )}
+                        {order.district && (
+                          <div className="flex gap-3 text-sm">
+                            <span className="material-icons-round text-slate-400 flex-shrink-0" style={{ fontSize: 16, marginTop: 1 }}>map</span>
+                            <span className="text-slate-700">{order.district}</span>
+                          </div>
+                        )}
+                        {order.driver_id && (
+                          <div className="flex gap-3 text-sm">
+                            <span className="material-icons-round text-slate-400 flex-shrink-0" style={{ fontSize: 16, marginTop: 1 }}>person_pin</span>
+                            <span className="text-slate-600 font-mono text-xs">{order.driver_id}</span>
+                          </div>
+                        )}
+                        {order.priority && (
+                          <div className="flex gap-3 text-sm">
+                            <span className="material-icons-round text-slate-400 flex-shrink-0" style={{ fontSize: 16, marginTop: 1 }}>flag</span>
+                            <span className="text-slate-700 capitalize">{order.priority} priority</span>
+                          </div>
+                        )}
+                        {order.updated_at && (
+                          <div className="flex gap-3 text-sm">
+                            <span className="material-icons-round text-slate-400 flex-shrink-0" style={{ fontSize: 16, marginTop: 1 }}>update</span>
+                            <span className="text-slate-600">
+                              Last updated: {new Date(order.updated_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                          </div>
+                        )}
                       </div>
-                    )}
-                    {order.district && (
-                      <div className="flex gap-3 text-sm">
-                        <span className="text-slate-400 w-28 flex-shrink-0">District</span>
-                        <span className="text-slate-700">{order.district}</span>
-                      </div>
-                    )}
-                    {order.driver_id && (
-                      <div className="flex gap-3 text-sm">
-                        <span className="text-slate-400 w-28 flex-shrink-0">Driver ID</span>
-                        <span className="text-slate-700 font-mono text-xs">{order.driver_id}</span>
-                      </div>
-                    )}
-                    {order.items && order.items.length > 0 && (
-                      <div>
-                        <p className="text-sm font-medium text-slate-700 mb-2">Items</p>
-                        <div className="space-y-1.5">
-                          {order.items.map((item, idx) => (
-                            <div key={idx} className="flex justify-between text-sm text-slate-600 bg-slate-50 rounded-lg px-3 py-2">
-                              <span>{item.name} × {item.quantity}</span>
-                              <span className="font-medium">Rs. {(item.price * item.quantity).toFixed(2)}</span>
+
+                      {/* Order Summary */}
+                      {order.items && order.items.length > 0 && (
+                        <div className="border border-slate-200 rounded-xl overflow-hidden">
+                          <div className="bg-slate-50 px-4 py-2.5 border-b border-slate-200">
+                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Order Summary</p>
+                          </div>
+                          <div className="divide-y divide-slate-100">
+                            {order.items.map((item, idx) => (
+                              <div key={idx} className="flex items-center justify-between px-4 py-3">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-9 h-9 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                    {item.image
+                                      ? <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                                      : <span className="material-icons-round text-teal-600" style={{ fontSize: 16 }}>inventory_2</span>
+                                    }
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-medium text-slate-800">{item.name}</p>
+                                    <p className="text-xs text-slate-400">Rs. {item.price.toFixed(2)} × {item.quantity}</p>
+                                  </div>
+                                </div>
+                                <span className="text-sm font-semibold text-slate-900">Rs. {(item.price * item.quantity).toFixed(2)}</span>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="bg-slate-50 border-t border-slate-200 px-4 py-3 space-y-1.5">
+                            <div className="flex justify-between text-sm text-slate-600">
+                              <span>Subtotal ({order.items.reduce((s, i) => s + i.quantity, 0)} items)</span>
+                              <span>Rs. {subtotal.toFixed(2)}</span>
                             </div>
-                          ))}
+                            <div className="flex justify-between text-sm text-slate-600">
+                              <span>Delivery</span>
+                              <span className="text-green-600 font-medium">Free</span>
+                            </div>
+                            <div className="flex justify-between text-sm font-bold text-slate-900 pt-1.5 border-t border-slate-200">
+                              <span>Total</span>
+                              <span>Rs. {(total ?? subtotal).toFixed(2)}</span>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
-                )}
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             );
           })}
